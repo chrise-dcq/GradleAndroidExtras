@@ -1,10 +1,11 @@
 buildscript 
 {
+    // Define path to local Maven repo, this is where the plugin was installed
     def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
     repositories 
     {
         mavenCentral()
-	mavenRepo url: localMavenRepo
+        mavenRepo url: localMavenRepo
     }
 
     dependencies 
