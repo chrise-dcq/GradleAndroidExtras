@@ -2,6 +2,7 @@ GradleAndroidExtras
 ===================
 
 A humble attempt at making android development easier with custom Gradle plugins
+WARNING: This is my first attempt at any Groovy/Gradle so this is definiately a "work in progress".
 
 
 **Feature: setupAndroidBuild
@@ -9,7 +10,7 @@ A humble attempt at making android development easier with custom Gradle plugins
 This creates the default android studio/gradle structure and adds some basic android files (e.g. AndroidManifest.xml)
 
 TODO: 
--Add support for command line arguments for things like namespace
+-Add more support for command line arguments that tweak the behavior (e.g packageName)
 -Be able to detect the existance of files in these locations and warn but not overwrite them.
 -Add support for adding library (sub) projects
 
@@ -39,6 +40,12 @@ TODO:
 3. Run the command
 
     gradle setupAndroidBuild
+
+    # Optional Command-line Arguments (prefix each with -P):
+    packageName: changes the packageName inside the AndroidManifest.xml (default: com.android.example)
+    
+    # Sample with custom package
+    gradle -PpackageName=com.foo.bar setupAndroidBuild
     
 4. Enjoy
 5. Support the project, fork, star, advertise, send pull requests, add feature requests, or just send us happy thoughts.

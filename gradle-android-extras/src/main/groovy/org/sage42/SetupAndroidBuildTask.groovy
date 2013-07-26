@@ -28,7 +28,10 @@ class SetupAndroidBuildTask extends DefaultTask
     
     // standard definitions
     def String MANIFEST = "AndroidManifest.xml"
-    
+
+    // wildcards used to customize the resultant files
+    def String WILDCARD_PACKAGE = "##packageName##"
+        
     // parent directories
     def String SRC_MAIN_DIR = "src/main/"
     def String SRC_TEST_DIR = "src/instrumentTest/"
@@ -36,7 +39,7 @@ class SetupAndroidBuildTask extends DefaultTask
     // android specific directories
     def String JAVA_DIR = "java"
     def String RESOURCES_DIR = "resources"
-    def String RES_DIR = "res"
+    def String RES_DIR = "res/"
     def String ASSETS_DIR = "assets"
     def String AIDL_DIR = "aidl"
     def String RS_DIR = "rs"
@@ -53,36 +56,53 @@ class SetupAndroidBuildTask extends DefaultTask
     def String VALUES = "values"
     def String VALUES_V11 = "values-v11"
     def String VALUES_V14 = "values-v14"
-    
+
     @TaskAction
     def setupAndroidBuild()
     {
         // standard java directories
-        new File(SRC_MAIN_DIR + JAVA_DIR).mkdirs();
-        new File(SRC_MAIN_DIR + RESOURCES_DIR).mkdirs();
+        createDir(SRC_MAIN_DIR + JAVA_DIR);
+        createDir(SRC_MAIN_DIR + RESOURCES_DIR);
 
         // android app special directories
-        new File(SRC_MAIN_DIR + RES_DIR + DRAWABLE).mkdirs();
-        new File(SRC_MAIN_DIR + RES_DIR + DRAWABLE_LDPI).mkdirs();
-        new File(SRC_MAIN_DIR + RES_DIR + DRAWABLE_MDPI).mkdirs();
-        new File(SRC_MAIN_DIR + RES_DIR + DRAWABLE_HDPI).mkdirs();
-        new File(SRC_MAIN_DIR + RES_DIR + DRAWABLE_XHDPI).mkdirs();
-        new File(SRC_MAIN_DIR + RES_DIR + LAYOUT).mkdirs();
-        new File(SRC_MAIN_DIR + RES_DIR + MENU).mkdirs();
-        new File(SRC_MAIN_DIR + RES_DIR + VALUES).mkdirs();
-        new File(SRC_MAIN_DIR + RES_DIR + VALUES_V11).mkdirs();
-        new File(SRC_MAIN_DIR + RES_DIR + VALUES_V14).mkdirs();
-        new File(SRC_MAIN_DIR + ASSETS_DIR).mkdirs();
-        new File(SRC_MAIN_DIR + AIDL_DIR).mkdirs();
-        new File(SRC_MAIN_DIR + RS_DIR).mkdirs();
-        new File(SRC_MAIN_DIR + JNI_DIR).mkdirs();
+        createDir(SRC_MAIN_DIR + RES_DIR + DRAWABLE);
+        createDir(SRC_MAIN_DIR + RES_DIR + DRAWABLE);
+        createDir(SRC_MAIN_DIR + RES_DIR + DRAWABLE_LDPI);
+        createDir(SRC_MAIN_DIR + RES_DIR + DRAWABLE_MDPI);
+        createDir(SRC_MAIN_DIR + RES_DIR + DRAWABLE_HDPI);
+        createDir(SRC_MAIN_DIR + RES_DIR + DRAWABLE_XHDPI);
+        createDir(SRC_MAIN_DIR + RES_DIR + LAYOUT);
+        createDir(SRC_MAIN_DIR + RES_DIR + MENU);
+        createDir(SRC_MAIN_DIR + RES_DIR + VALUES);
+        createDir(SRC_MAIN_DIR + RES_DIR + VALUES_V11);
+        createDir(SRC_MAIN_DIR + RES_DIR + VALUES_V14);
+        createDir(SRC_MAIN_DIR + ASSETS_DIR);
+        createDir(SRC_MAIN_DIR + AIDL_DIR);
+        createDir(SRC_MAIN_DIR + RS_DIR);
+        createDir(SRC_MAIN_DIR + JNI_DIR);
 
         // standard test directories
-        new File(SRC_TEST_DIR + JAVA_DIR).mkdirs();
-        new File(SRC_TEST_DIR + RESOURCES_DIR).mkdirs();
+        createDir(SRC_TEST_DIR + JAVA_DIR);
+        createDir(SRC_TEST_DIR + RESOURCES_DIR);
         
-        // TODO: create/copy AndroidManifest.xml and project.properties
-        new File(SRC_MAIN_DIR + MANIFEST) << getClass().getResourceAsStream(PLUGIN_RESOURCE_DIR + MANIFEST).bytes;
+        // copy AndroidManifest.xml (using custom packageName if supplied)
+        def customPackageName = project.hasProperty("packageName") ? project.getProperty("packageName") : "com.example.android"
+        println("Setting packageName to: " + customPackageName)
+        
+        def destAndroidManifest = new File(SRC_MAIN_DIR + MANIFEST);
+        destAndroidManifest.delete();
+        getClass().getResourceAsStream(PLUGIN_RESOURCE_DIR + MANIFEST).eachLine
+        { line ->
+            destAndroidManifest.append(line.replace(WILDCARD_PACKAGE, customPackageName))
+            destAndroidManifest.append(System.getProperty("line.separator"))
+        }
+        
+        // copy other default android files
     }
 
+    def createDir(path)
+    {
+        println("Creating: " + path)
+        new File(path).mkdirs();
+    }
 }
