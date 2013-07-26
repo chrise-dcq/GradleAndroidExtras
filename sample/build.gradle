@@ -1,0 +1,17 @@
+buildscript 
+{
+    def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+    repositories 
+    {
+        mavenCentral()
+	mavenRepo url: localMavenRepo
+    }
+
+    dependencies 
+    {
+        classpath 'org.sage42:gradle-android-extras:1.0-SNAPSHOT'
+    }
+}
+
+apply plugin: 'setupAndroidBuild'
+

@@ -1,0 +1,13 @@
+# generated files
+build/
+**/.gradle/
+
+# Eclipse project files
+.project
+.settings/
+
+# Android Studio Files
+*.iml
+.idea/
+
+
