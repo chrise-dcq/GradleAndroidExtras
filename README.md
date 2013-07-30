@@ -16,9 +16,9 @@ TODO:
 
 ###Usage:
 
-1.  Create a folder for your new project
+1)  Create a folder for your new project
 
-2.  Create a basic gradle.build config, for example
+2) Create a basic gradle.build config, for example
 
 ```
     buildscript 
@@ -40,7 +40,7 @@ TODO:
     apply plugin: 'setupAndroidBuild'
 ```
 
-3. Run the command
+3) Run the command
 
 
 ```
@@ -53,12 +53,10 @@ TODO:
     gradle -PpackageName=com.foo.bar setupAndroidBuild
 ```
 
-4. Enjoy
+4) Enjoy
 
-5. Support the project, fork, star, advertise, send pull requests, add feature requests, or just send us happy thoughts.
+5) Support the project, fork, star, advertise, send pull requests, add feature requests, or just send us happy thoughts.
 
-
-----------------------------------------------------------------------------------------------------------------------------------------
 
 ##Feature(TODO): Add android libraries to project
 
