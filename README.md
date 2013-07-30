@@ -11,12 +11,11 @@ This creates the default android studio/gradle structure and adds some basic and
 
 TODO: 
 * Add more support for command line arguments that tweak the behavior (e.g packageName)
-* Be able to detect the existance of files in these locations and warn but not overwrite them.
 * Add support for adding library (sub) projects
 
 ###Usage:
 
-1)  Create a folder for your new project
+1) Create a folder for your new project
 
 2) Create a basic gradle.build config, for example
 

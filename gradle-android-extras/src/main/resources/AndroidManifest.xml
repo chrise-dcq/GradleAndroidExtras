@@ -11,8 +11,6 @@
 
 	<supports-screens android:anyDensity="true" />
 
-	<!-- General Permissions -->
-
 	<application
 		android:allowBackup="true"
 		android:hardwareAccelerated="true"
