@@ -1,9 +1,11 @@
 # generated files
 build/
 **/.gradle/
+.groovy/
 
 # Eclipse project files
 .project
+.classpath
 .settings/
 
 # Android Studio Files
