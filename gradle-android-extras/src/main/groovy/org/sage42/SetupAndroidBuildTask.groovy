@@ -18,8 +18,6 @@ import org.gradle.api.tasks.TaskAction
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * @author Corey Scott (corey.scott@sage42.com)
- *
  */
 class SetupAndroidBuildTask extends DefaultTask {
 

@@ -1,19 +1,40 @@
+// These settings are only used by the build tools
 buildscript 
 {
-    // Define path to local Maven repo, this is where the plugin was installed
-    def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
     repositories 
     {
         mavenCentral()
-        mavenRepo url: localMavenRepo
+        mavenLocal()
     }
 
     dependencies 
     {
         classpath 'org.sage42:gradle-android-extras:1.0-SNAPSHOT'
+        //classpath 'com.android.tools.build:gradle:0.5.+'
     }
 }
 
 apply plugin: 'setupAndroidBuild'
 apply plugin: 'androidLib'
+
+// These settings define what the project requires
+//apply plugin: 'android'
+
+repositories
+{
+    mavenCentral()
+    mavenLocal()
+}
+
+//dependencies
+//{
+//   compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+//    compile 'com.android.support:support-v4:18.0.+'
+//}
+//
+//android
+//{
+//    compileSdkVersion 14
+//    buildToolsVersion '17.0.0'
+//}
 

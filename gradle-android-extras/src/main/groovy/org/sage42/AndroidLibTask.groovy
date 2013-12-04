@@ -18,17 +18,19 @@ import org.gradle.api.tasks.TaskAction
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * @author Corey Scott (corey.scott@sage42.com)
- *
  */
 class AndroidLibTask extends DefaultTask
 {
     // arguments for this plugin
     def String ARG_ACTION = "action"
-
+    def String ARG_LIBRARY_NAME = "lib"
+    
     // possible values for the "action" argument
     def String ACTION_HELP = "help"
     def String ACTION_ADD_LIBRARY = "add"
+    
+    // libraries to add
+    
 
     /**
      * Main entry point for this task
@@ -42,7 +44,7 @@ class AndroidLibTask extends DefaultTask
         def action = project.hasProperty(ARG_ACTION) ? project.getProperty(ARG_ACTION) : null
 
         // switch between different actions
-        if (action.equals(ACTION_ADD))
+        if (action.equals(ACTION_ADD_LIBRARY))
         {
             doAddLibrary()
             return
@@ -59,7 +61,24 @@ class AndroidLibTask extends DefaultTask
      */
     def doAddLibrary()
     {
-        println("Add library")
+        def libName = project.hasProperty(ARG_LIBRARY_NAME) ? project.getProperty(ARG_LIBRARY_NAME) : null
+        if (libName == null)
+        {
+            println("Please supply argument in the form: -P" + ARG_LIBRARY_NAME + "=<some value>")
+            return
+        }
+
+        /**
+         * Notes: to install ActionBarSherlock, you also need to install android support lib v4
+         */
+        
+        // TODO: check if its installed already
+        
+        // TODO: download the AAR file from online maven repo (if needed)
+        
+        // TODO: install AAR into local repo
+        
+        // TODO: update project config
     }
     
     /**
@@ -69,6 +88,11 @@ class AndroidLibTask extends DefaultTask
      */
     def doShowHelp()
     {
-        println("Show help")
+        println("\n*** Android Lib Task ***\n")
+        println("Usage: gradle -Paction=<action> -P<additional param>=<value> androidLib\n")
+        println("Supported actions: ")
+        println(ACTION_ADD_LIBRARY + " - Add android library to the current project")
+        println(ACTION_HELP + " - Displays this help (default action)")
+        println("\n")
     }
 }
